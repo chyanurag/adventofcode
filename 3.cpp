@@ -14,32 +14,26 @@ int main(){
 	cin.tie(0);
 	ifstream file("input");
 	string s;
-	int size;
-	vector<stack<int>> boxes;
-	stack<vector<int>> insts;
+	int total = 0;
 	while(getline(file, s)){
-		if(s[0] == '[' || s[1] != '1'){
-			int j = 0;
-			for(int i = 1; i < size; i+=4){
-				j++;
-				if(s[i] != ' '){
-					cout << "boxes[" << j << "]" << " " << s[i] << endl;
+		set<char> s1(s.begin(), s.begin()+(s.length()/2));
+		set<char> s2(s.begin() + s.length() / 2, s.end());
+		for(char c : s1){
+			for(char d : s2){
+				if(c == d){
+					if(c >= 65 && c <= 90){
+						total += c - 38;
+						continue;
+					}
+					else{
+						total += c - 96;
+						continue;
+					}
 				}
 			}
-		}
-		else if(s[1] == '1'){
-			size = s.length();
-			cout << size << endl;
-			continue;
-		}
-		else if(s.empty()){
-			
-			continue;
-		}
-		else{
-
-		}
+		}	
 	}
+	cout << total << endl;
 	file.close();
 	return 0;
 }
